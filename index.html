@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>form test</title>
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>
+    <div id="contactus" style="margin-top:20px;" data-aos="fade-right">
+    	<div class="getintouch" >
+    		<h1>Get in Touch</h1>
+    		<h4>Feel free to approach us</h4>
+
+        <form id="contactform" >
+          <input type="text" id="name" placeholder="Name" required="">
+          <input type="email" id="email" placeholder="Email " required="">
+          <input type="text" id="state" placeholder="State">
+          <textarea id="message" placeholder="Message" style="height:200px"></textarea>
+          <input type="submit" value="Submit">
+        </form>
+
+      </div>
+    </div>
+
+    <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js";
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDBdgv0rh-GmZJdgrYSwnlSoSCxCE4wJM",
+      authDomain: "form-test-63a6f.firebaseapp.com",
+      projectId: "form-test-63a6f",
+      storageBucket: "form-test-63a6f.appspot.com",
+      messagingSenderId: "91189754506",
+      appId: "1:91189754506:web:1ea9e807d9a47504688b73",
+      databaseURL: "https://form-test-63a6f-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase();
+
+    //creating a reference
+    // let contactInfo = ref(database);
+
+    // listen for form Submit
+    document.getElementById('contactform').addEventListener('submit',submitForm);
+
+    function submitForm(e) {
+      e.preventDefault();
+
+      //Get values
+      var name = getInputValue('name')
+      var email = getInputValue('email')
+      var state = getInputValue('state')
+      var message = getInputValue('message')
+
+      //save massage
+      saveMessage(name,email,state,message);
+    }
+
+    //function to get value
+    function getInputValue(id){
+        return document.getElementById(id).value;
+    }
+
+    // save message to firebase
+    function saveMessage(name, email, state,message){
+      const x = ref(database, 'messages');
+      const y = push(x);
+      set(y,{
+        name: name,
+        email: email,
+        state: state,
+        message: message
+      });
+
+      console.log("data saved");
+    }
+
+    </script>
+    <!-- <script type="module" src="js.js"></script> -->
+    <!-- <script src="main.js"></script> -->
+
+  </body>
+</html>
