@@ -11,7 +11,9 @@
     	<div class="getintouch" >
     		<h1>Get in Touch</h1>
     		<h4>Feel free to approach us</h4>
-
+        <div class="alert">
+          Your message has been sent.
+        </div>
         <form id="contactform" >
           <input type="text" id="name" placeholder="Name" required="">
           <input type="email" id="email" placeholder="Email " required="">
@@ -61,6 +63,18 @@
 
       //save massage
       saveMessage(name,email,state,message);
+
+      //show alert
+      document.querySelector('.alert').style.display = 'block';
+
+      //hide alert after 3 seconds
+      setTimeout(function(){
+        document.querySelector('.alert').style.display = 'none';
+      },3000);
+
+      //reseting form
+      document.getElementById('contactform').reset();
+
     }
 
     //function to get value
